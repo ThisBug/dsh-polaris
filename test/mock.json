@@ -1,0 +1,129 @@
+{
+  "workspace": "D:/Work/demo",
+  "workspaces": [
+    {
+      "key": "D:/Work/demo",
+      "title": "demo",
+      "counts": {
+        "total": 6,
+        "todo": 3,
+        "doing": 2,
+        "done": 1,
+        "blocked": 0,
+        "void": 0
+      },
+      "registered": true
+    }
+  ],
+  "updatedAt": "2026-11-09T02:00:00.000Z",
+  "northStar": "把「项目管理」模块的 12 个页面与子页面（含弹窗、表单）逐张截图审阅，产出可修复的问题清单",
+  "redLines": [
+    {
+      "id": "R1",
+      "text": "不允许用 SQL / 脚本 / 业务接口造业务单据；业务数据只能由页面录入"
+    },
+    {
+      "id": "R2",
+      "text": "不允许新建计划文档；要做的事只能登记进台账"
+    },
+    {
+      "id": "R3",
+      "text": "不允许跳过登录页取证（注入 token / impersonate）"
+    }
+  ],
+  "ledger": [
+    {
+      "id": "P01",
+      "title": "环境准备与账号开通",
+      "status": "done",
+      "source": "用户指令",
+      "detail": "部署本地环境，开通审阅账号，确认能正常登录",
+      "result": "已完成，账号可正常登录",
+      "evidence": "docs/01-board.png",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    },
+    {
+      "id": "P02",
+      "title": "页面清单梳理",
+      "status": "todo",
+      "source": "计划批次 P02",
+      "detail": "枚举一级页面、子页面、弹窗与表单，输出清单",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    },
+    {
+      "id": "P03",
+      "title": "主流程截图审阅",
+      "status": "doing",
+      "source": "计划批次 P03",
+      "detail": "按岗位逐个走主流程，每页截图并逐张审阅",
+      "result": "",
+      "evidence": "已审 8/14 张",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    },
+    {
+      "id": "P04",
+      "title": "表单与校验规则审阅",
+      "status": "todo",
+      "source": "计划批次 P04",
+      "detail": "检查必填、格式、边界值、重复提交、错误提示",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    },
+    {
+      "id": "P05",
+      "title": "异常与空态审阅",
+      "status": "todo",
+      "source": "计划批次 P05",
+      "detail": "断网、空数据、超长文本、权限不足时的表现",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    },
+    {
+      "id": "P06",
+      "title": "汇总问题清单",
+      "status": "doing",
+      "source": "计划批次 P06",
+      "detail": "按严重度分级，给出可复现步骤与修复建议",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z"
+    }
+  ],
+  "counts": {
+    "total": 6,
+    "todo": 3,
+    "doing": 2,
+    "done": 1,
+    "blocked": 0,
+    "void": 0
+  },
+  "meta": {
+    "lastToolReadAt": "2026-11-09T02:00:00.000Z"
+  },
+  "activity": [
+    {
+      "at": "2026-11-09T01:58:00.000Z",
+      "kind": "read",
+      "detail": "读取台账",
+      "session": "a1b2c3d4",
+      "name": "评审会话",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-09T01:59:00.000Z",
+      "kind": "update",
+      "detail": "P03 → doing",
+      "session": "a1b2c3d4",
+      "name": "评审会话",
+      "origin": "tool"
+    }
+  ],
+  "sessionNames": {
+    "a1b2c3d4": "评审会话"
+  },
+  "guiUrl": "http://127.0.0.1:0/northstar"
+}

@@ -1,0 +1,47 @@
+{
+  "name": "dsh-polaris",
+  "version": "1.0.0",
+  "description": "North Star ledger for DeepSeek Harness: injects goal + red lines + plan ledger into every step, with a floating per-project board.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "goal",
+    "ledger",
+    "guardrail"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@deepseek-ai/dsh-tools": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThisBug/dsh-polaris.git"
+  },
+  "homepage": "https://github.com/ThisBug/dsh-polaris#readme",
+  "bugs": {
+    "url": "https://github.com/ThisBug/dsh-polaris/issues"
+  },
+  "scripts": {
+    "test": "node test/run.cjs && node test/run2.cjs && node test/run3.cjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.40.0"
+  }
+}
