@@ -4,7 +4,7 @@ const path = require('path');
 const PW = process.env.PLAYWRIGHT_PATH || 'playwright-core';
 const { chromium } = require(PW);
 require('./_preview.cjs')();
-const CHROME = process.env.CHROME_PATH || null; // 留空则用 Playwright 自带 Chromium
+const CHROME = process.env.CHROME_PATH || null;
 const DIR = __dirname;
 const OUT = path.join(DIR, 'out');
 fs.mkdirSync(OUT, { recursive: true });
@@ -19,6 +19,9 @@ const MOCK = JSON.parse(fs.readFileSync(path.join(DIR, 'mock.json'), 'utf8'));
 
   await page.addInitScript((mock) => {
     window.__posted = [];
+    const ACTT={read:function(){return '读取台账（目标·红线·进度）'},check:function(d){return d&&d!=='开工闸门校验'?'开工校验：'+d:'开工校验'},update:function(d){return '回写台账 '+d},add:function(d){return '登记台账 '+d},goal:function(d){return d||'修改目标'},redline:function(d){return d||'修改红线'},deviate:function(d){return '记录偏离 '+d}};
+    const actText=function(k,d){const f=ACTT[k];return f?f(String(d||'')):String(d||k)};
+
     const cssText = () => document.getElementById('ns-css').textContent;
     window.fetch = function (url, opts) {
       url = String(url);
@@ -33,10 +36,10 @@ const MOCK = JSON.parse(fs.readFileSync(path.join(DIR, 'mock.json'), 'utf8'));
             if (it) { it.status = b.status; if (b.result) it.result = b.result; if (b.evidence) it.evidence = b.evidence; }
             mock.counts = { total: L.length, todo: 0, doing: 0, done: 0, blocked: 0, void: 0 };
             for (const x of L) mock.counts[x.status] = (mock.counts[x.status] || 0) + 1;
-            mock.activity.push({ at: new Date().toISOString(), kind: 'ui', detail: b.id + ' → ' + b.status, session: 'ui', name: '' });
+            mock.activity.push({ at: new Date().toISOString(), kind: 'update', detail: b.id + ' → ' + b.status, text: actText('update', b.id + ' → ' + b.status), session: 'ui', name: '', origin: 'panel' });
           }
-          if (b.action === 'session-name') { mock.sessionNames[b.session] = b.name; mock.activity.push({ at: new Date().toISOString(), kind: 'ui', detail: '命名会话 ' + b.session + ' → ' + b.name, session: 'ui', name: '' }); }
-          if (b.action === 'redline') { mock.activity.push({ at: new Date().toISOString(), kind: 'ui', detail: '改红线 ' + b.id, session: 'ui', name: '' }); }
+          if (b.action === 'session-name') { mock.sessionNames[b.session] = b.name; mock.activity.push({ at: new Date().toISOString(), kind: 'session', detail: '命名会话 ' + b.session + ' → ' + b.name, session: 'ui', name: '' }); }
+          if (b.action === 'redline') { mock.activity.push({ at: new Date().toISOString(), kind: 'redline', detail: '修改红线 ' + b.id, text: actText('redline', '修改红线 ' + b.id), session: 'ui', name: '', origin: 'panel' }); }
           return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve({ ok: true }) });
         }
         return Promise.resolve({ ok: true, status: 200, json: () => Promise.resolve(mock) });

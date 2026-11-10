@@ -111,7 +111,8 @@
       "detail": "读取台账",
       "session": "a1b2c3d4",
       "name": "评审会话",
-      "origin": "tool"
+      "origin": "tool",
+      "text": "读取台账（目标·红线·进度）"
     },
     {
       "at": "2026-11-09T01:59:00.000Z",
@@ -119,11 +120,12 @@
       "detail": "P03 → doing",
       "session": "a1b2c3d4",
       "name": "评审会话",
-      "origin": "tool"
+      "origin": "tool",
+      "text": "回写台账 P03 → doing"
     }
   ],
-  "sessionNames": {
-    "a1b2c3d4": "评审会话"
-  },
-  "guiUrl": "http://127.0.0.1:0/northstar"
+  "guiUrl": "http://127.0.0.1:0/northstar",
+  "sessionTitles": {
+    "a1b2c3d4": "页面审阅会话"
+  }
 }

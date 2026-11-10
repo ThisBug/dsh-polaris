@@ -19,6 +19,9 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
   const errors=[]; page.on('pageerror',e=>errors.push(String(e)));
   await page.addInitScript((mock)=>{
     window.__wsCalls=[];
+    const ACTT={read:function(){return '读取台账（目标·红线·进度）'},check:function(d){return d&&d!=='开工闸门校验'?'开工校验：'+d:'开工校验'},update:function(d){return '回写台账 '+d},add:function(d){return '登记台账 '+d},goal:function(d){return d||'修改目标'},redline:function(d){return d||'修改红线'},deviate:function(d){return '记录偏离 '+d}};
+    const actText=function(k,d){const f=ACTT[k];return f?f(String(d||'')):String(d||k)};
+
     const cssText=()=>document.getElementById('ns-css').textContent;
     window.fetch=function(url,opts){
       url=String(url);
@@ -26,7 +29,7 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
       if(url.indexOf('/northstar/api')>=0){
         if(opts&&opts.method==='POST'){
           const b=JSON.parse(opts.body);
-          if(b.action==='update'){const it=mock.ledger.find(x=>x.id===b.id); if(it) it.status=b.status; mock.activity.push({at:new Date().toISOString(),kind:'ui',detail:b.id+' → '+b.status,session:'ui',name:'',origin:'panel'});}
+        if(b.action==='update'){const it=mock.ledger.find(x=>x.id===b.id); if(it) it.status=b.status; mock.activity.push({at:new Date().toISOString(),kind:'update',detail:b.id+' → '+b.status,text:actText('update',b.id+' → '+b.status),session:'ui',name:'',origin:'panel'});}
           return Promise.resolve({ok:true,status:200,json:()=>Promise.resolve({ok:true})});
         }
         window.__wsCalls.push(url);
@@ -37,7 +40,7 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
       }
       return Promise.resolve({ok:true,text:()=>Promise.resolve('')});
     };
-    localStorage.setItem('dsh.northstar.ui', JSON.stringify({tab:'act', filter:['todo','doing'], opacity:90}));
+    localStorage.setItem('dsh.northstar.ui', JSON.stringify({tab:'act', filter:['todo','doing'], theme:'glass'}));
     localStorage.setItem('dsh.northstar.stash.D__Work_demo', JSON.stringify([{text:'demo 的暂存',at:new Date().toISOString()}]));
     localStorage.setItem('dsh.northstar.stash.D__Work_second', JSON.stringify([{text:'second 的暂存',at:new Date().toISOString()}]));
   }, MOCK);
@@ -47,6 +50,12 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
   const ev=(c)=>page.evaluate((code)=>{const roots=[];for(const el of document.body.children) if(el.shadowRoot) roots.push(el.shadowRoot); const root=roots[0]; return new Function('root',code)(root);},c);
   const res={errors};
   // 1) 记录条数 ≤ 30
+  res.theme = await ev(`
+    const pn=root.querySelector('.ns-panel');
+    const btns=Array.from(root.querySelectorAll('[data-th]')).map(b=>({th:b.getAttribute('data-th'),on:b.classList.contains('on')}));
+    const hasOpacity = !!root.querySelector('[data-op]');
+    return { btns: btns, active: pn.getAttribute('data-theme'), hasOpacity: hasOpacity };
+  `);
   res.layout = await ev(`
     const pn=root.querySelector('.ns-panel'), list=root.querySelector('.ns-actlist'), btn=root.querySelector('.ns-ddbtn'), op=root.querySelector('.ns-oprow');
     const pr=pn.getBoundingClientRect();
@@ -61,7 +70,7 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
       listScrollable: list ? list.scrollHeight > list.clientHeight + 2 : null,
       listH: list?Math.round(list.clientHeight):0,
       ddBg: cs.backgroundColor, ddColor: cs.color, ddRadius: cs.borderRadius,
-      opOpacity: op?getComputedStyle(op).opacity:'', opH: op?Math.round(op.getBoundingClientRect().height):0
+      themeBtns: root.querySelectorAll('[data-th]').length
     };
   `);
   res.box = await ev(`
@@ -93,14 +102,39 @@ const MOCK=JSON.parse(fs.readFileSync(path.join(DIR,'mock-multi.json'),'utf8'));
                tagW: tag?Math.round(tag.getBoundingClientRect().width):0 }; });
     return { xs, alignedText: xs.length>1 ? new Set(xs.map(x=>x.text)).size === 1 : null, alignedTag: xs.length>1 ? new Set(xs.map(x=>x.tagW)).size === 1 : null };
   `);
-  res.onActTab = await ev("return { ws: !!root.querySelector('[data-ws]'), op: !!root.querySelector('[data-op]'), actTabOn: !!root.querySelector('[data-tab=act].on') };");
+  res.onActTab = await ev("return { ws: !!root.querySelector('[data-ws]'), theme: !!root.querySelector('[data-th]'), noOpacity: !root.querySelector('[data-op]'), actTabOn: !!root.querySelector('[data-tab=act].on') };");
   res.act = await ev(`const rows=root.querySelectorAll('.ns-act-row'); const tab=root.querySelector('[data-tab="act"]'); const names=Array.from(rows).slice(0,3).map(r=>r.innerText.split(String.fromCharCode(10)).join(' ')); return {rows:rows.length, tabText: tab?tab.textContent:'', first:names};`);
-  // 2) 透明度滑块
-  res.opacityBefore = await ev(`const p=root.querySelector('.ns-panel'); return getComputedStyle(p).getPropertyValue('--ns-a').trim();`);
-  await ev(`const s=root.querySelector('[data-op]'); s.value='50'; s.dispatchEvent(new Event('input',{bubbles:true})); return s.value;`);
+  // 2) 主题切换（液态玻璃 → 黑夜）
+  await ev("const b=root.querySelector('[data-th=dark]'); if(b) b.dispatchEvent(new MouseEvent('click',{bubbles:true})); return true;");
   await page.waitForTimeout(300);
-  res.opacityAfter = await ev(`const p=root.querySelector('.ns-panel'); const s=root.querySelector('[data-op]'); const lab=root.querySelector('.ns-opv'); return {v:getComputedStyle(p).getPropertyValue('--ns-a').trim(), slider:s.value, label:lab?lab.textContent:'', stored:(JSON.parse(localStorage.getItem('dsh.northstar.ui')||'{}').opacity)};`);
-  await page.screenshot({path:path.join(OUT,'13-opacity50.png')});
+  res.contrast = await ev(`
+    const pn=root.querySelector('.ns-panel');
+    const parse=function(c){const m=c.match(/rgba?\\(([^)]+)\\)/); if(!m) return null; const a=m[1].split(',').map(Number); return {r:a[0],g:a[1],b:a[2],a:a.length>3?a[3]:1};};
+    const lum=function(c){return (0.299*c.r+0.587*c.g+0.114*c.b)/255;};
+    const fg=parse(getComputedStyle(pn).color);
+    const bg=parse(getComputedStyle(pn).backgroundColor) || {r:20,g:25,b:35,a:1};
+    const panelBg=/rgba\\(([^)]+)\\)/.exec(getComputedStyle(pn).backgroundImage);
+    const base=panelBg?parse('rgba('+panelBg[1]+')'):bg;
+    return { fgLum: Math.round(lum(fg)*100)/100, bgLum: Math.round(lum(base)*100)/100, diff: Math.round(Math.abs(lum(fg)-lum(base))*100)/100 };
+  `);
+  res.themeAfter = await ev(`const pn=root.querySelector('.ns-panel'); return { v: pn.getAttribute('data-theme'), dark: pn.classList.contains('ns-dark'), light: pn.classList.contains('ns-light'), bg: getComputedStyle(pn).backgroundImage.slice(0,46), fg: getComputedStyle(pn).color, stored: (JSON.parse(localStorage.getItem('dsh.northstar.ui')||'{}').theme) };`);
+  await page.screenshot({path:path.join(OUT,'13-theme-dark.png')});
+  res.themeAll = [];
+  for (const th of ['glass','dark','light']) {
+    await ev("const b=root.querySelector('[data-th=dark]'); root.querySelectorAll('[data-th]').forEach(function(x){ if(x.getAttribute('data-th')==='"+th+"') x.dispatchEvent(new MouseEvent('click',{bubbles:true})); }); return true;");
+    await page.waitForTimeout(350);
+    res.themeAll.push(await ev(`
+      const pn=root.querySelector('.ns-panel');
+      const parse=function(c){const m=c&&c.match(/rgba?\\(([^)]+)\\)/); if(!m) return null; const a=m[1].split(',').map(Number); return {r:a[0],g:a[1],b:a[2],a:a.length>3?a[3]:1};};
+      const lum=function(c){return (0.299*c.r+0.587*c.g+0.114*c.b)/255;};
+      const bi=getComputedStyle(pn).backgroundImage;
+      const m=bi.match(/rgba\\(([^)]+)\\)/);
+      const base=m?parse('rgba('+m[1]+')'):null;
+      const fgc=getComputedStyle(pn).color;
+      return { theme: pn.getAttribute('data-theme'), fg: fgc, baseLum: base?Math.round(lum(base)*100)/100:null, fgLum: Math.round(lum(parse(fgc))*100)/100, diff: base?Math.round(Math.abs(lum(base)-lum(parse(fgc)))*100)/100:null };
+    `));
+    await page.screenshot({path:path.join(OUT,'theme-'+th+'.png')});
+  }
   // 3) 项目切换
   res.wsOptions = await ev("return Array.from(root.querySelectorAll('.ns-dditem')).map(o=>({v:o.getAttribute('data-wsval'),t:o.textContent}));");
   await ev("const b=root.querySelector('[data-ws]'); b.click(); return !!b;");

@@ -318,4 +318,72 @@
 .ns-act-row .ns-tag{grid-area:tag;justify-self:start;display:inline-block;width:auto!important;max-width:100%;
   margin:0!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}
 .ns-act-row .d{grid-area:d;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;line-height:1.45}
+
+/* ===== v24 三主题：液态玻璃 / 黑夜 / 白天 ===== */
+.ns-panel{ --ns-fg:#f2f5fb; --ns-fg2:#eef2f8; --ns-fg3:#dfe7f3;
+  --ns-surf:rgba(255,255,255,.10); --ns-surf2:rgba(255,255,255,.07); --ns-surf3:rgba(255,255,255,.18);
+  --ns-line:rgba(255,255,255,.22); --ns-measure:rgba(255,255,255,.14);
+  --ns-input:rgba(8,12,20,.42); --ns-drawer:rgba(8,12,20,.55); --ns-dd:rgba(13,19,30,.98);
+  --ns-shadow:0 24px 60px -18px rgba(0,0,0,.55); --ns-blur:blur(28px) saturate(190%);
+}
+.ns-panel[data-theme="dark"]{
+  --ns-fg:#e8edf6; --ns-fg2:#dfe6f0; --ns-fg3:#cdd6e4;
+  --ns-surf:rgba(255,255,255,.06); --ns-surf2:rgba(255,255,255,.04); --ns-surf3:rgba(255,255,255,.11);
+  --ns-line:rgba(255,255,255,.14); --ns-measure:rgba(255,255,255,.10);
+  --ns-input:rgba(0,0,0,.55); --ns-drawer:rgba(0,0,0,.62); --ns-dd:rgba(8,11,17,.99);
+  --ns-shadow:0 26px 64px -18px rgba(0,0,0,.78); --ns-blur:blur(10px) saturate(120%);
+  background:linear-gradient(150deg,rgba(28,33,44,.96),rgba(17,21,29,.97) 46%,rgba(12,16,23,.98))!important;
+  border-color:rgba(255,255,255,.10)!important;
+}
+.ns-panel[data-theme="dark"]::before{opacity:.10!important;mix-blend-mode:screen}
+.ns-panel[data-theme="dark"]::after{opacity:.16!important}
+.ns-panel[data-theme="light"]{
+  --ns-fg:#1a2230; --ns-fg2:#20293a; --ns-fg3:#3a4658;
+  --ns-surf:rgba(15,23,38,.055); --ns-surf2:rgba(15,23,38,.04); --ns-surf3:rgba(15,23,38,.10);
+  --ns-line:rgba(15,23,38,.14); --ns-measure:rgba(15,23,38,.10);
+  --ns-input:rgba(255,255,255,.86); --ns-drawer:rgba(255,255,255,.92); --ns-dd:rgba(255,255,255,.99);
+  --ns-shadow:0 22px 56px -20px rgba(30,40,60,.30); --ns-blur:blur(26px) saturate(150%);
+  background:linear-gradient(150deg,rgba(255,255,255,.94),rgba(246,249,255,.90) 44%,rgba(238,243,252,.92))!important;
+  border-color:rgba(15,23,38,.12)!important;
+}
+.ns-panel[data-theme="light"]::before{opacity:.30!important}
+.ns-panel[data-theme="light"]::after{opacity:.22!important;background:radial-gradient(closest-side,rgba(99,184,255,.18),transparent 70%)!important}
+.ns-panel{color:var(--ns-fg)}
+
+.ns-panel .ns-title,.ns-panel .ns-pct{color:var(--ns-fg)}
+.ns-panel .ns-goal{color:var(--ns-fg)}
+.ns-panel .ns-row{background:var(--ns-surf2);border-color:var(--ns-line)}
+.ns-panel .ns-row:hover{background:var(--ns-surf3)}
+.ns-panel .ns-stash li{background:var(--ns-surf2);border-color:var(--ns-line)}
+.ns-panel .ns-tab{background:var(--ns-surf2);color:var(--ns-fg2)}
+.ns-panel .ns-tab.on{background:var(--ns-surf3);color:var(--ns-fg)}
+.ns-panel .ns-ta{background:var(--ns-input);color:var(--ns-fg);border-color:var(--ns-line)}
+.ns-panel .ns-drawer{background:var(--ns-drawer);border-color:var(--ns-line)}
+.ns-panel .ns-ddlist{background:var(--ns-dd);border-color:var(--ns-line)}
+.ns-panel .ns-ddbtn{background:var(--ns-surf);color:var(--ns-fg);border-color:var(--ns-line)}
+.ns-panel .ns-act-row .d{color:var(--ns-fg3)}
+.ns-panel .ns-track{background:var(--ns-measure)}
+.ns-panel .ns-ghost,.ns-panel .ns-mini{background:var(--ns-surf);color:var(--ns-fg)}
+.ns-panel .ns-bar,.ns-panel .ns-read{color:var(--ns-fg2)}
+.ns-panel .ns-proj,.ns-panel .ns-step{color:var(--ns-fg2)}
+/* 主题按钮组 */
+.ns-theme{display:flex;gap:2px;margin-left:8px;padding:2px;border-radius:9px;background:var(--ns-surf2);flex:none}
+.ns-thb{all:unset;cursor:pointer;width:20px;height:18px;line-height:18px;text-align:center;font-size:11px;
+  border-radius:7px;color:var(--ns-fg2);transition:background .18s,color .18s,transform .18s}
+.ns-thb:hover{background:var(--ns-surf3)}
+.ns-thb.on{background:linear-gradient(135deg,rgba(99,184,255,.85),rgba(169,139,255,.85));color:#08121f;font-weight:700}
+
+/* v25 旧白色常量在浅色主题下收口 */
+.ns-panel[data-theme="light"] .ns-head .ns-btn{background:rgba(15,23,38,.07);color:#1a2230}
+.ns-panel[data-theme="light"] .ns-head .ns-btn:hover{background:rgba(15,23,38,.13)}
+.ns-panel[data-theme="light"] .ns-caps{color:#1a2230}
+.ns-panel[data-theme="light"] .ns-foot{border-top-color:rgba(15,23,38,.10);background:rgba(255,255,255,.30)}
+.ns-panel[data-theme="dark"] .ns-foot{border-top-color:rgba(255,255,255,.08);background:rgba(0,0,0,.28)}
+.ns-panel[data-theme="light"] .ns-act-row{border-bottom-color:rgba(15,23,38,.08)}
+.ns-panel[data-theme="dark"] .ns-act-row{border-bottom-color:rgba(255,255,255,.06)}
+.ns-panel[data-theme="light"] .ns-pill.ns-todo{color:#5b6478}
+.ns-panel[data-theme="light"] .ns-dditem{color:#20293a}
+.ns-panel[data-theme="light"] .ns-dditem:hover{background:rgba(15,23,38,.08)}
+.ns-panel[data-theme="light"] .ns-dditem.on{background:rgba(99,184,255,.22);color:#0b1622}
+.ns-panel[data-theme="light"] .ns-tag.ui{color:#0b1622}
 </style></head><body><div style="position:fixed;left:12px;bottom:8px;color:#8aa;font:12px/1.4 sans-serif;opacity:.6">northstar preview harness</div></body></html>
