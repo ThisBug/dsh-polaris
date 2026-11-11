@@ -94,7 +94,7 @@ const MOCK = JSON.parse(fs.readFileSync(path.join(DIR, 'mock.json'), 'utf8'));
   // 3) 打开详情，检查来源/详情/结果
   await shadowEval(`const rows=root.querySelectorAll('[data-item]'); if(rows[1]) rows[1].click(); return rows.length;`);
   await page.waitForTimeout(400);
-  res.detail = await shadowEval(`const d=root.querySelector('.ns-drawer'); return d ? d.innerText.slice(0,300) : 'no drawer';`);
+  res.detail = await shadowEval("const d=root.querySelector('.ns-side'); return (d && d.classList.contains('on')) ? d.innerText.slice(0,320) : 'no side drawer';");
   await shot('02-detail');
 
   // 4) 红线改：点"改"应出现 input（而不是 window.prompt）
@@ -147,7 +147,7 @@ const MOCK = JSON.parse(fs.readFileSync(path.join(DIR, 'mock.json'), 'utf8'));
   `);
   await shot('07-board-final');
   res.layout = await shadowEval(`
-    const pn=root.querySelector('.ns-panel'), bd=root.querySelector('.ns-body'), dr=root.querySelector('.ns-drawer');
+    const pn=root.querySelector('.ns-panel'), bd=root.querySelector('.ns-body'), dr=root.querySelector('.ns-side.on');
     const g=(el)=>el?el.getBoundingClientRect():null;
     const cs=pn?getComputedStyle(pn):{};
     return { vh: window.innerHeight, panel: g(pn)&&Math.round(g(pn).height), panelTop: g(pn)&&Math.round(g(pn).top), panelBottom: g(pn)&&Math.round(g(pn).bottom),
@@ -178,18 +178,18 @@ const MOCK = JSON.parse(fs.readFileSync(path.join(DIR, 'mock.json'), 'utf8'));
   await page.waitForTimeout(400);
   res.rowProbe = await shadowEval(`
     const sel = Array.from(root.querySelectorAll('.ns-row.sel')).map(r=>r.getAttribute('data-item'));
-    const dr = root.querySelector('.ns-drawer');
+    const dr = root.querySelector('.ns-side.on');
     const itemCount = root.querySelectorAll('[data-item]').length;
     const b02 = Array.from(root.querySelectorAll('[data-item]')).find(x=>x.getAttribute('data-item')==='B02');
     if (!dr && b02) { b02.click(); }
     return { selBefore: sel, drawerBefore: !!dr, itemCount: itemCount, hadB02: !!b02 };
   `);
   await page.waitForTimeout(400);
-  res.rowProbe2 = await shadowEval("const dr=root.querySelector('.ns-drawer'); const sel=Array.from(root.querySelectorAll('.ns-row.sel')).map(r=>r.getAttribute('data-item')); return {drawer: !!dr, sel: sel, drawerText: dr?dr.innerText.slice(0,60):''};");
-  await shadowEval("const b=root.querySelector('.ns-drawer [data-st=done]'); if(b) b.click(); return !!b;");
+  res.rowProbe2 = await shadowEval("const dr=root.querySelector('.ns-side.on'); const sel=Array.from(root.querySelectorAll('.ns-row.sel')).map(r=>r.getAttribute('data-item')); return {drawer: !!dr, sel: sel, drawerText: dr?dr.innerText.slice(0,60):''};");
+  await shadowEval("const b=root.querySelector('.ns-side [data-st=done]'); if(b) b.click(); return !!b;");
   await page.waitForTimeout(700);
   res.probe = await shadowEval(`
-    const dr = root.querySelector('.ns-drawer');
+    const dr = root.querySelector('.ns-side.on');
     const btns = dr ? dr.querySelectorAll('[data-st]') : [];
     const target = dr ? dr.querySelector('[data-st=done]') : null;
     if (target) target.click();

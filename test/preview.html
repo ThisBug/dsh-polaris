@@ -386,4 +386,50 @@
 .ns-panel[data-theme="light"] .ns-dditem:hover{background:rgba(15,23,38,.08)}
 .ns-panel[data-theme="light"] .ns-dditem.on{background:rgba(99,184,255,.22);color:#0b1622}
 .ns-panel[data-theme="light"] .ns-tag.ui{color:#0b1622}
+
+/* ===== v27 侧边详情抽屉 ===== */
+.ns-side{position:fixed;right:0;top:0;bottom:0;width:320px;max-width:86vw;pointer-events:auto;
+  padding:14px 16px 18px;overflow-y:auto;overscroll-behavior:contain;
+  background:var(--ns-dd,rgba(13,19,30,.98));border-left:1px solid var(--ns-line,rgba(255,255,255,.22));
+  box-shadow:-18px 0 48px -20px rgba(0,0,0,.7);color:var(--ns-fg,#f2f5fb);
+  font:13px/1.55 -apple-system,'Segoe UI','Microsoft YaHei',sans-serif;
+  transform:translateX(104%);transition:transform .34s cubic-bezier(.22,1.18,.36,1),opacity .2s ease;opacity:0;z-index:40}
+.ns-side.on{transform:translateX(0);opacity:1}
+.ns-side-hd{display:flex;align-items:flex-start;gap:8px;margin:0 0 10px}
+.ns-side-hd h4{margin:0;font-size:13px;line-height:1.4;flex:1;word-break:break-all}
+.ns-side .kvs{margin:0 0 10px}
+.ns-side .kv{margin:0 0 6px;font-size:12px}
+.ns-side .kv>b{display:inline-block;min-width:32px;opacity:.6;font-weight:500}
+.ns-side .ns-ta{width:100%;box-sizing:border-box;margin:0 0 10px}
+.ns-side .ns-acts{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.ns-hist{margin-top:10px;padding-top:10px;border-top:1px solid var(--ns-line,rgba(255,255,255,.14))}
+.ns-hist>b{display:block;margin:0 0 6px;font-size:12px;opacity:.7;font-weight:500}
+.ns-hist .hrow{display:grid;grid-template-columns:44px 1fr auto;gap:8px;font-size:11.5px;padding:2px 0;opacity:.85}
+.ns-hist .muted{opacity:.5}
+.ns-side::-webkit-scrollbar{width:6px}.ns-side::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:3px}
+/* 记录「更早」 */
+.ns-more{display:flex;justify-content:center;padding:10px 0 4px}
+/* 偏离条目 */
+.ns-dev li.ok{opacity:.55}
+.ns-dev li.ok span:first-child{text-decoration:line-through}
+.ns-dev .muted{opacity:.5;font-style:normal;font-size:11px}
+.ns-sec .ns-pill{font-size:10px}
+/* 白天主题下的细节点缀 */
+.ns-panel[data-theme="light"] details>summary .chev{color:#4a5568}
+.ns-panel[data-theme="light"] .ns-track .ns-fill{background:linear-gradient(90deg,#2aa06a,#2f7fd8 60%,#7a5cd8)}
+.ns-panel[data-theme="light"] .ns-meta span{color:#43506a}
+.ns-panel[data-theme="light"] .ns-sec summary span.cnt{color:#5b6478}
+.ns-panel[data-theme="dark"] .ns-side{background:rgba(8,11,17,.99)}
+.ns-panel[data-theme="light"] .ns-side{background:rgba(255,255,255,.99);color:#1a2230}
+
+/* v28 侧边抽屉定位：优先贴在面板左侧，屏幕够宽时不压面板 */
+.ns-side{right:auto;left:0;top:0;bottom:0}
+.ns-side.on{transform:translateX(0)}
+@media (min-width:900px){
+  .ns-side{left:auto;right:calc(22px + 340px + 14px);top:96px;bottom:96px;border-radius:18px;border:1px solid var(--ns-line,rgba(255,255,255,.22));
+    box-shadow:0 26px 60px -22px rgba(0,0,0,.6)}
+}
+@media (max-width:899px){
+  .ns-side{left:auto;right:12px;top:60px;bottom:60px;width:min(320px,calc(100vw - 24px));border-radius:16px}
+}
 </style></head><body><div style="position:fixed;left:12px;bottom:8px;color:#8aa;font:12px/1.4 sans-serif;opacity:.6">northstar preview harness</div></body></html>

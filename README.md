@@ -39,13 +39,18 @@
 ```bash
 # 1. 放进 DSH 插件目录
 git clone https://github.com/ThisBug/dsh-polaris.git
+
+# macOS / Linux
 cp -r dsh-polaris ~/.dsh/profiles/desktop/plugins/dsh-polaris
+
+# Windows PowerShell
+# Copy-Item -Recurse dsh-polaris "$env:USERPROFILE\.dsh\profiles\desktop\plugins\dsh-polaris"
 
 # 2. 在 ~/.dsh/profiles/desktop/cordis.patch.yml 的 insert: 下追加配置（见下）
 # 3. 重启 DSH，或改一下 grantMinutes 数值触发热重载
 ```
 
-配置片段：
+配置里的路径写你本机的即可（macOS/Linux 用 `/Users/you/.dsh/...`，Windows 用 `C:/Users/you/.dsh/...`，正斜杠在两侧都能识别）：
 
 ```yaml
 insert:
@@ -234,7 +239,7 @@ insert:
 **按项目隔离**：项目 A 的暂存不会出现在项目 B。
 
 ### 记录
-最近 **30 条**操作流水，**与 `/northstar` 网页看板共用同一份数据与同一套文案**（宿主统一生成 `text` 字段，两处不再各写一套）。区分两种来源：
+默认显示最近 **30 条**，点「更早的记录」每次再往前翻 30 条（磁盘最多保留 500 条）操作流水，**与 `/northstar` 网页看板共用同一份数据与同一套文案**（宿主统一生成 `text` 字段，两处不再各写一套）。区分两种来源：
 
 | 来源 | 显示 |
 |---|---|
@@ -242,6 +247,12 @@ insert:
 | DSH 会话调用工具 | 该会话的真实标题（从 DSH 会话缓存读取首条消息），取不到时显示 `DSH 会话 <短id>` |
 
 记录行是两行式：上行时间 + 徽章，下行是完整动作描述（不截断）。
+
+### 详情抽屉
+点台账任意一行，**详情在侧边滑出**（屏幕够宽时贴在面板左侧、不遮挡面板；窄屏则覆盖），列表本身不再向下展开。抽屉里包含：状态与更新时间、来源、详情、结果、证据、备注、状态轨迹（最近 6 次变更）、五个状态按钮，以及补充证据输入框。
+
+### 偏离（红线执行情况）
+红线下面新增「偏离」区：每条偏离可「标记已处理」，处理过的显示删除线与「已处理」徽章；计数形式为 `N 未处理 / M 条`，望不到底的噪音不会一直干扰。
 
 ### 顶部控件
 - **项目下拉**：并入 `~/.dsh/storages/workspace.json` 里 DSH 的全部工作区，已登记台账的排前面并显示 `done/total`，未登记的标「无台账」。**下拉只用来切换查看**；工具写入永远按当前会话所属项目，切换查看不会让别的会话写错项目。
