@@ -506,3 +506,30 @@
 /* v36 面板留出上下边距，避免贴边被裁（bottom 96 + max-height 会顶出屏幕） */
 .ns-panel{max-height:calc(100vh - 132px)!important}
 @media (max-height:720px){ .ns-panel{max-height:calc(100vh - 40px)!important;bottom:20px!important} }
+
+/* ===== v37 抽屉定位最终版（覆盖此前所有重复定义） ===== */
+.ns-side{
+  left:auto!important;right:auto!important;
+  top:50%!important;bottom:auto!important;
+  transform:translateY(-50%) translateX(24px)!important;
+  width:min(320px, calc(100vw - 400px))!important;
+  max-height:calc(100vh - 140px)!important;
+  border-radius:16px!important;
+  border:1px solid var(--ns-line,rgba(255,255,255,.22))!important;
+  box-shadow:0 22px 54px -20px rgba(0,0,0,.75)!important;
+}
+.ns-side.on{transform:translateY(-50%) translateX(0)!important}
+/* 宽屏：钉在面板左边，留 12px 间隙 */
+@media (min-width:960px){
+  .ns-side{right:calc(22px + 340px + 12px)!important}
+}
+/* 窄屏：抽屉从右侧覆盖，但给面板留出关闭按钮的位置（顶部让开 52px） */
+@media (max-width:959px){
+  .ns-side{right:12px!important;width:min(320px,calc(100vw - 24px))!important;max-height:calc(100vh - 120px)!important}
+}
+/* 折叠态时面板只有 186px，抽屉位置跟着收 */
+.ns-panel.ns-collapsed ~ .ns-side{right:calc(22px + 186px + 12px)!important}
+
+/* v37b 偏离 NEW 徽章 + 折叠态间距 */
+.ns-new{font-size:9.5px;padding:0 5px;border-radius:6px;background:rgba(255,120,90,.9);color:#1a0a06;font-weight:700;letter-spacing:.5px;margin-left:4px}
+.ns-panel[data-theme="light"] .ns-new{background:#e2503a;color:#fff}
