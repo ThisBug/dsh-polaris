@@ -44,6 +44,10 @@
 |---|---|---|
 | ![glass](docs/s6-glass.png) | ![dark](docs/s5-dark.png) | ![light](docs/s4-light.png) |
 
+> 详情抽屉同样跟随主题（浅色下白底深字）
+
+![浅色抽屉](docs/s2b-side-light.png)
+
 > 项目下拉：并入 DSH 全部工作区，按项目隔离台账 / 红线 / 暂存 / 记录
 
 ![项目切换](docs/s7-ws.png)
