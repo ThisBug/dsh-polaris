@@ -432,4 +432,18 @@
 @media (max-width:899px){
   .ns-side{left:auto;right:12px;top:60px;bottom:60px;width:min(320px,calc(100vw - 24px));border-radius:16px}
 }
+
+/* v29 抽屉自身的主题变量（不在 .ns-panel 内，需要独立定义） */
+.ns-side{--ns-fg:#f2f5fb;--ns-fg2:#eef2f8;--ns-line:rgba(255,255,255,.22);--ns-dd:rgba(13,19,30,.98);
+  --ns-surf:rgba(255,255,255,.10);--ns-surf2:rgba(255,255,255,.07);--ns-input:rgba(8,12,20,.42)}
+.ns-side[data-theme="dark"]{--ns-fg:#e8edf6;--ns-fg2:#dfe6f0;--ns-line:rgba(255,255,255,.14);--ns-dd:rgba(8,11,17,.99);
+  --ns-surf:rgba(255,255,255,.06);--ns-surf2:rgba(255,255,255,.04);--ns-input:rgba(0,0,0,.55)}
+.ns-side[data-theme="light"]{--ns-fg:#1a2230;--ns-fg2:#20293a;--ns-line:rgba(15,23,38,.14);--ns-dd:rgba(255,255,255,.99);
+  --ns-surf:rgba(15,23,38,.055);--ns-surf2:rgba(15,23,38,.04);--ns-input:rgba(255,255,255,.86)}
+.ns-side[data-theme="light"]{color:#1a2230}
+.ns-side[data-theme="light"] .kv>b{color:#5b6478}
+.ns-side[data-theme="light"] .ns-hist{border-top-color:rgba(15,23,38,.12)}
+.ns-side[data-theme="light"] .ns-side-hd h4{color:#1a2230}
+.ns-side .ns-mini{background:var(--ns-surf);color:var(--ns-fg)}
+.ns-side .ns-ta{background:var(--ns-input);color:var(--ns-fg);border-color:var(--ns-line)}
 </style></head><body><div style="position:fixed;left:12px;bottom:8px;color:#8aa;font:12px/1.4 sans-serif;opacity:.6">northstar preview harness</div></body></html>

@@ -1,0 +1,2096 @@
+{
+  "workspace": "D:/Work/demo",
+  "workspaces": [
+    {
+      "key": "D:/Work/demo",
+      "title": "demo",
+      "counts": {
+        "total": 6,
+        "todo": 3,
+        "doing": 2,
+        "done": 1,
+        "blocked": 0,
+        "void": 0
+      },
+      "registered": true
+    },
+    {
+      "key": "D:/Work/second",
+      "title": "second",
+      "counts": {
+        "total": 0,
+        "done": 0,
+        "doing": 0,
+        "todo": 0
+      },
+      "registered": false
+    }
+  ],
+  "updatedAt": "2026-11-09T02:00:00.000Z",
+  "northStar": "把「项目管理」模块的 12 个页面与子页面（含弹窗、表单）逐张截图审阅，产出可修复的问题清单",
+  "redLines": [
+    {
+      "id": "R1",
+      "text": "不允许用 SQL / 脚本 / 业务接口造业务单据；业务数据只能由页面录入"
+    },
+    {
+      "id": "R2",
+      "text": "不允许新建计划文档；要做的事只能登记进台账"
+    },
+    {
+      "id": "R3",
+      "text": "不允许跳过登录页取证（注入 token / impersonate）"
+    }
+  ],
+  "ledger": [
+    {
+      "id": "P01",
+      "title": "环境准备与账号开通",
+      "status": "done",
+      "source": "用户指令",
+      "detail": "部署本地环境，开通审阅账号，确认能正常登录",
+      "result": "已完成，账号可正常登录",
+      "evidence": "docs/01-board.png",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    },
+    {
+      "id": "P02",
+      "title": "页面清单梳理",
+      "status": "todo",
+      "source": "计划批次 P02",
+      "detail": "枚举一级页面、子页面、弹窗与表单，输出清单",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    },
+    {
+      "id": "P03",
+      "title": "主流程截图审阅",
+      "status": "doing",
+      "source": "计划批次 P03",
+      "detail": "按岗位逐个走主流程，每页截图并逐张审阅",
+      "result": "",
+      "evidence": "已审 8/14 张",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    },
+    {
+      "id": "P04",
+      "title": "表单与校验规则审阅",
+      "status": "blocked",
+      "source": "计划批次 P04",
+      "detail": "检查必填、格式、边界值、重复提交、错误提示",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    },
+    {
+      "id": "P05",
+      "title": "异常与空态审阅",
+      "status": "done",
+      "source": "计划批次 P05",
+      "detail": "断网、空数据、超长文本、权限不足时的表现",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    },
+    {
+      "id": "P06",
+      "title": "汇总问题清单",
+      "status": "doing",
+      "source": "计划批次 P06",
+      "detail": "按严重度分级，给出可复现步骤与修复建议",
+      "result": "",
+      "evidence": "",
+      "updatedAt": "2026-11-09T02:00:00.000Z",
+      "history": [
+        {
+          "at": "2026-11-01T02:00:00Z",
+          "from": "",
+          "to": "todo",
+          "via": "add"
+        },
+        {
+          "at": "2026-11-02T02:00:00Z",
+          "from": "todo",
+          "to": "doing",
+          "via": "tool"
+        },
+        {
+          "at": "2026-11-03T02:00:00Z",
+          "from": "doing",
+          "to": "done",
+          "via": "panel"
+        },
+        {
+          "at": "2026-11-05T02:00:00Z",
+          "from": "done",
+          "to": "doing",
+          "via": "tool"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "total": 6,
+    "todo": 3,
+    "doing": 2,
+    "done": 1,
+    "blocked": 0,
+    "void": 0
+  },
+  "meta": {
+    "lastToolReadAt": "2026-11-12T07:30:00.000Z",
+    "lastToolReadRev": 12,
+    "rev": 12
+  },
+  "activity": [
+    {
+      "at": "2026-11-01T08:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-01T08:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T09:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T09:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T10:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T10:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T11:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T11:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-01T12:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T12:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T13:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T13:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T14:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T14:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T15:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-01T15:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T16:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T16:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T17:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T17:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T18:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T18:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-01T19:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T19:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T20:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T20:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T21:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T21:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T22:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-01T22:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T23:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-01T23:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T00:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T00:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T01:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T01:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T02:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T02:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T03:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T03:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T04:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T04:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T05:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T05:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T06:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T06:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T07:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T07:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T08:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T08:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T09:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T09:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T10:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T10:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T11:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T11:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T12:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T12:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T13:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T13:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T14:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T14:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T15:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T15:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T16:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T16:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T17:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T17:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T18:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T18:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T19:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T19:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T20:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T20:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T21:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T21:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T22:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T22:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-02T23:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-02T23:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T00:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T00:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T01:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T01:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T02:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T02:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T03:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T03:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T04:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T04:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T05:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T05:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T06:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T06:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T07:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T07:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T08:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T08:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T09:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T09:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T10:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T10:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T11:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T11:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T12:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T12:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T13:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T13:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T14:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T14:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T15:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T15:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T16:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T16:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T17:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T17:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T18:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T18:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T19:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T19:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T20:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T20:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T21:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T21:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T22:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T22:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-03T23:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-03T23:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T00:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T00:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T01:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T01:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T02:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T02:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T03:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T03:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T04:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T04:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T05:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T05:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T06:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T06:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T07:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T07:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T08:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T08:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T09:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T09:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T10:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T10:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T11:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T11:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T12:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T12:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T13:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T13:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T14:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T14:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T15:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T15:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T16:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T16:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T17:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T17:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T18:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T18:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T19:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T19:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T20:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-04T20:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T21:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T21:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T22:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T22:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T23:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-04T23:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-05T00:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T00:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T01:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T01:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T02:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T02:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T03:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-05T03:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T04:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T04:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T05:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T05:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T06:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T06:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-05T07:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T07:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T08:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T08:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T09:00:00.000Z",
+      "kind": "add",
+      "detail": "P03 → done",
+      "text": "登记台账 P03 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T09:30:00.000Z",
+      "kind": "check",
+      "detail": "P03",
+      "text": "开工校验：P03",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T10:00:00.000Z",
+      "kind": "deviate",
+      "detail": "P05 → doing",
+      "text": "记录偏离 P05 → doing",
+      "session": "ui",
+      "name": "",
+      "origin": "panel"
+    },
+    {
+      "at": "2026-11-05T10:30:00.000Z",
+      "kind": "update",
+      "detail": "P06 → done",
+      "text": "回写台账 P06 → done",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T11:00:00.000Z",
+      "kind": "read",
+      "detail": "",
+      "text": "读取台账（目标·红线·进度）",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    },
+    {
+      "at": "2026-11-05T11:30:00.000Z",
+      "kind": "update",
+      "detail": "P02 → doing",
+      "text": "回写台账 P02 → doing",
+      "session": "a1b2c3d4",
+      "name": "",
+      "origin": "tool"
+    }
+  ],
+  "guiUrl": "http://127.0.0.1:0/northstar",
+  "sessionTitles": {
+    "a1b2c3d4": "页面审阅会话"
+  },
+  "deviations": [
+    {
+      "at": "2026-11-10T03:12:00Z",
+      "what": "为省时间直接用脚本批量造了测试数据",
+      "redLine": "R1",
+      "status": "open"
+    },
+    {
+      "at": "2026-11-11T02:40:00Z",
+      "what": "截图时跳过了登录页，直接用已有 token",
+      "redLine": "R3",
+      "status": "resolved"
+    }
+  ]
+}
