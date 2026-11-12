@@ -446,3 +446,63 @@
 .ns-side[data-theme="light"] .ns-side-hd h4{color:#1a2230}
 .ns-side .ns-mini{background:var(--ns-surf);color:var(--ns-fg)}
 .ns-side .ns-ta{background:var(--ns-input);color:var(--ns-fg);border-color:var(--ns-line)}
+
+/* ===== v33 修复点击命中：关闭态抽屉必须完全不吃事件 ===== */
+.ns-side{pointer-events:none!important;visibility:hidden}
+.ns-side.on{pointer-events:auto!important;visibility:visible}
+@media (min-width:900px){
+  /* 贴面板左侧，绝不与面板重叠：面板右距 22px + 宽 340px + 12px 间隙 */
+  .ns-side{left:auto!important;right:calc(22px + 340px + 12px)!important;top:96px!important;bottom:96px!important}
+}
+@media (max-width:899px){
+  .ns-side{left:auto!important;right:12px!important;top:56px!important;bottom:56px!important}
+}
+/* 面板内部任何伪元素都不得拦截点击 */
+.ns-panel::before,.ns-panel::after,.ns-panel .ns-sheen,.ns-panel .ns-track::after{pointer-events:none!important}
+/* 折叠态预览在展开时应完全不吃事件（避免遮住标题栏按钮） */
+.ns-peek,.ns-peek2{pointer-events:none!important}
+.ns-panel.ns-collapsed:hover .ns-peek{pointer-events:none!important}
+/* 标题栏与按钮：确保可点（cursor:grab 只用于拖拽区，不挡按钮） */
+.ns-head .ns-btn,.ns-head .ns-thb,.ns-caps .ns-btn,.ns-caps .ns-thb{position:relative;z-index:3;pointer-events:auto!important}
+.ns-head{cursor:default}
+.ns-head [data-drag]{cursor:grab}
+
+/* ===== v34 点击热区修复 ===== */
+/* 1) 层级拉满，避免被 DSH 自己的浮层/侧栏压住 */
+#ns-host{z-index:2147483647!important}
+/* 2) 面板内一切可交互元素显式 auto，杜绝继承到 none */
+.ns-panel,.ns-panel *{pointer-events:auto}
+.ns-panel::before,.ns-panel::after,.ns-panel .ns-sheen,.ns-panel .ns-track::after,
+.ns-panel .ns-fill,.ns-panel .ns-fill::after{pointer-events:none!important}
+/* 3) 关闭态抽屉彻底不占位 */
+.ns-side{pointer-events:none!important;visibility:hidden}
+.ns-side.on{pointer-events:auto!important;visibility:visible}
+/* 4) 标题栏按钮 24 → 32，并把命中区扩到 40 */
+.ns-btn,.ns-thb{width:32px!important;height:32px!important;min-width:32px;font-size:13px}
+.ns-btn::after,.ns-thb::after{content:'';position:absolute;inset:-4px}
+.ns-btn,.ns-thb{position:relative}
+.ns-head .ns-btn,.ns-head .ns-thb{place-self:center}
+/* 5) 折叠按钮与主题按钮之间留足间距，避免互相吃掉 */
+.ns-head .ns-theme{margin-left:auto;margin-right:4px}
+.ns-head .ns-pct{margin-left:0;margin-right:6px}
+/* 6) 底部不再遮住列表：缩小 footer、加大 body 可视区 */
+.ns-panel{max-height:calc(100vh - 96px)!important}
+.ns-body{max-height:none!important;flex:1 1 auto;min-height:0;overflow-y:auto;padding-bottom:10px!important}
+.ns-foot{padding:7px 16px 8px!important;min-height:0;flex:none!important}
+.ns-foot .ns-ghost{padding:5px 10px;font-size:11.5px}
+.ns-actlist{max-height:none!important;overflow:visible!important}
+/* 7) 台账行整行可点、视觉上明确 */
+.ns-list .ns-row{cursor:pointer}
+.ns-list .ns-row>*{pointer-events:none}   /* 点哪都归整行，避免子元素吃掉事件 */
+/* 8) 抽屉内部元素要能点（上面的 * 兜底已覆盖，这里明确一遍） */
+.ns-side,.ns-side *{pointer-events:auto}
+.ns-side:not(.on),.ns-side:not(.on) *{pointer-events:none!important}
+
+/* v35 小视口：footer 不再挤占，body 保底高度 */
+.ns-panel{overflow:hidden}
+.ns-body{overflow-y:auto!important}
+.ns-foot{position:relative;z-index:4;background:var(--ns-dd,rgba(13,19,30,.98))}
+
+/* v36 面板留出上下边距，避免贴边被裁（bottom 96 + max-height 会顶出屏幕） */
+.ns-panel{max-height:calc(100vh - 132px)!important}
+@media (max-height:720px){ .ns-panel{max-height:calc(100vh - 40px)!important;bottom:20px!important} }

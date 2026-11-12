@@ -357,6 +357,9 @@ test/_preview.cjs  每次测试前用当前 CSS 重建 preview.html
 test/run.cjs       核心断言：挂载、详情、红线编辑、暂存、记录、筛选、改状态、布局
 test/run2.cjs      改状态后是否自动落入对应分类
 test/run3.cjs      30 条上限 / 三主题渲染与对比度 / 项目切换 / 暂存隔离
+test/run4.cjs      记录翻页 / 侧边抽屉 / 偏离处理 / 状态轨迹 / 已读判定
+test/run5.cjs      点击热区：4 种视口 × 48 点死区扫描 + 真实鼠标点击回归
+test/shots.cjs     一键重出 docs/ 里的全套截图
 test/mock*.json    中性演示数据（D:/Work/demo、D:/Work/second）
 docs/              截图
 ```
@@ -377,6 +380,8 @@ export CHROME_PATH=                            # 留空使用 Playwright 自带 
 node test/run.cjs
 node test/run2.cjs
 node test/run3.cjs
+node test/run4.cjs
+node test/run5.cjs
 ```
 
 测试直接渲染 `test/preview.html`，用 mock 数据接管 `fetch`，断言真实 DOM（不是快照）。截图落在 `test/out/`（已在 .gitignore 忽略）。
@@ -409,6 +414,19 @@ DSH 桌面外壳屏蔽了 `window.prompt`。本项目所有行内编辑都用真
 本仓库**不含任何真实业务数据**：`test/` 下的 mock 与截图均为虚构演示（项目路径 `D:/Work/demo`、任务名为通用的"页面审阅"流程）。台账文件默认写在用户本机 `~/.dsh/northstar/ledger.json`，不随仓库提交，也不会外发。
 
 ---
+
+## 点击热区
+
+整个面板的点击判定做了逐点验证：面板内部 **48 个采样点全部命中面板自身**（0 死区），关闭状态的详情抽屉**完全不拦截点击**（实测 0 命中）。
+
+![点击热区](docs/click-fixed.png)
+
+几个容易踩的细节：
+
+- 点台账任意一行，**左 / 中 / 右三个位置都能打开详情**——行内子元素不吞事件；
+- 标题栏右侧的折叠与主题按钮放大到 32px（原 24px），并把命中区外扩 4px；
+- 关闭态的抽屉用 `visibility:hidden + pointer-events:none + inert` 三重保险，不会挡住面板右上角；
+- 「加载更早的记录」按钮放在**记录列表顶部**——放在底部时被 30 行记录推到屏幕外，根本点不到。
 
 ## 十、已知限制
 
