@@ -1,0 +1,123 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>北极星台账</title>
+<style>
+:root{--bg:#0f1115;--card:#171a21;--line:#262b36;--fg:#e6e9ef;--dim:#8b93a7;--ok:#3fb950;--do:#d29922;--bad:#f85149;--todo:#6e7681}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.6 -apple-system,'Segoe UI',Microsoft YaHei,sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 20px 60px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:var(--dim);font-size:12px;margin-bottom:6px}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hd button{font-size:12px;padding:4px 10px;border-radius:8px}
+.stale{color:var(--do)}
+.msg{font-size:12.5px;margin:0 0 12px;min-height:17px;color:var(--dim)}.msg.bad{color:var(--bad)}.msg.good{color:var(--ok)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:14px}
+.bar{height:8px;background:#222632;border-radius:6px;overflow:hidden;margin:10px 0}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,#3fb950,#56d364)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--dim);font-weight:500;font-size:12px}
+.pill{display:inline-block;padding:1px 8px;border-radius:99px;font-size:12px;border:1px solid}
+.done{color:var(--ok);border-color:var(--ok)}.doing{color:var(--do);border-color:var(--do)}
+.blocked{color:var(--bad);border-color:var(--bad)}.todo{color:var(--todo);border-color:var(--todo)}
+.void{color:#888;border-color:#444;text-decoration:line-through}
+input,select,textarea,button{font:inherit;background:#0d1016;color:var(--fg);border:1px solid var(--line);border-radius:7px;padding:6px 9px}
+button{cursor:pointer}button:hover{border-color:#4b5568}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.muted{color:var(--dim);font-size:12px}
+ul{margin:8px 0 0 18px;padding:0}
+</style></head><body><div class="wrap">
+<div class="hd"><h1>北极星台账</h1><div><button onclick="api()">刷新</button> <span class="muted" id="tick"></span></div></div>
+<div class="sub" id="sub">加载中…</div><div class="msg" id="msg"></div>
+<div class="card"><div class="row" style="justify-content:space-between"><b>目标</b><span class="muted" id="pct"></span></div>
+<div id="goal" style="margin:8px 0"></div><div class="bar"><i id="bar" style="width:0"></i></div>
+<div class="row"><input id="goalInput" style="flex:1;min-width:320px" placeholder="修改目标"><button onclick="saveGoal()">保存目标</button></div></div>
+<div class="card"><b>红线</b><ul id="redlines"></ul>
+<div class="row"><input id="redInput" style="flex:1" placeholder="新增红线，如 R4:不许改产品代码只为截图好看"><button onclick="addRed()">加红线</button></div></div>
+<div class="card"><div class="row" style="justify-content:space-between"><b>台账</b><span class="muted" id="stat"></span></div>
+<table><thead><tr><th style="width:70px">ID</th><th>任务 / 详情</th><th style="width:80px">状态</th><th style="width:120px">证据</th><th style="width:280px">操作</th></tr></thead><tbody id="rows"></tbody></table>
+<div class="row"><input id="newId" style="width:90px" placeholder="ID（可空）"><input id="newTitle" style="flex:1" placeholder="新任务标题">
+<input id="newDetail" style="flex:1" placeholder="详情/验收标准（必填）"><button onclick="addItem()">登记</button></div></div>
+<div class="card"><b>偏离</b><ul id="devs"></ul>
+<div class="row"><input id="devWhat" style="flex:1" placeholder="偏离了什么"><input id="devRed" style="width:80px" placeholder="R1"><button onclick="addDev()">记录偏离</button></div></div>
+<div class="card"><b>活动记录</b><ul id="acts"></ul></div>
+</div>
+<script>
+let D=null;
+function esc(s){return String(s==null?'':s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function say(m,bad){var e=document.getElementById('msg');if(e){e.textContent=m||'';e.className='msg'+(bad?' bad':(m?' good':''))}}
+function api(body){
+  var p = body
+    ? fetch('/northstar/api',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(body)})
+    : fetch('/northstar/api',{headers:{'content-type':'application/json'}});
+  return p
+    .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j}});})
+    .then(function(x){
+      if(!x.ok){ say((x.j&&x.j.error)||('HTTP '+x.status), true); return x.j; }
+      // POST 只回 {ok:true}，必须再 GET 一次拿全量状态，否则界面会被操作结果覆盖
+      if(!body){ D=x.j; say(''); render(); return x.j; }
+      return fetch('/northstar/api',{headers:{'content-type':'application/json'}})
+        .then(function(r2){return r2.json();})
+        .then(function(S){ D=S; say(''); render(); return x.j; });
+    })
+    .catch(function(e){ say('请求失败：'+e, true); });
+}
+function render(){
+  var c=D.counts||{};
+  document.getElementById('sub').textContent='工作区 '+(D.workspace||'')+' · 更新 '+String(D.updatedAt||'').replace('T','').slice(0,19);
+  document.getElementById('goal').textContent=D.northStar||'（未设置）';
+  document.getElementById('goalInput').value=D.northStar||'';
+  var p=c.total?Math.round((c.done||0)*100/c.total):0;
+  document.getElementById('bar').style.width=p+'%';
+  document.getElementById('pct').textContent='完成 '+(c.done||0)+'/'+(c.total||0)+'（'+p+'%）';
+  document.getElementById('stat').textContent='进行 '+(c.doing||0)+' · 阻塞 '+(c.blocked||0)+' · 作废 '+(c.void||0);
+  document.getElementById('redlines').innerHTML=(D.redLines||[]).map(function(r){return '<li><b>'+esc(r.id)+'</b> '+esc(r.text)+'</li>';}).join('');
+  document.getElementById('rows').innerHTML=(D.ledger||[]).map(function(it){
+    var s=it.status||'todo';
+    var resv=String(it.result||'').replace(/[<<>>]/g,function(c){return {'<':'&lt;','>':'&gt;'}[c]}).replace(/"/g,'&quot;');
+    return '<tr><td>'+esc(it.id)+'</td><td>'+esc(it.title)+(it.detail?'<div class="muted">'+esc(it.detail)+'</div>':'')+'</td>'
+      +'<td><span class="pill '+s+'">'+s+'</span></td><td class="muted">'+esc(it.evidence||'')+'</td>'
+      +'<td><input id="resFor_'+esc(it.id)+'" placeholder="回写结果（终态必填）" style="width:100%;margin-bottom:6px" value="'+resv+'">'
+      +'<button onclick="setStatus(&quot;'+esc(it.id)+'&quot;,&quot;doing&quot;)">进行</button> '
+      +'<button onclick="setStatus(&quot;'+esc(it.id)+'&quot;,&quot;done&quot;)">完成</button> '
+      +'<button onclick="setStatus(&quot;'+esc(it.id)+'&quot;,&quot;blocked&quot;)">阻塞</button></td></tr>';
+  }).join('');
+  var names=D.sessionTitles||{};
+  document.getElementById('acts').innerHTML=(D.activity||[]).slice().reverse().slice(0,20).map(function(a){
+    var w=(a.origin==='panel'||a.session==='ui')?'本机用户·面板':(names[a.session]||('DSH 会话 '+String(a.session||'').slice(0,6)));
+    return '<li><span class="muted">'+esc(String(a.at||'').slice(11,16))+'</span> <b>'+esc(w)+'</b> '+esc(a.text||a.detail||a.kind)+'</li>';
+  }).join('')||'<li class="muted">暂无</li>';
+  document.getElementById('devs').innerHTML=(D.deviations||[]).slice().reverse().map(function(d){
+    var done=(d.status==='resolved');
+    return '<li'+(done?' style="opacity:.55"':'')+'><span class="muted">'+esc(String(d.at||'').slice(5,16).replace('T',' '))+'</span> <b>'+esc(d.redLine||'-')+'</b> '+esc(d.what)
+      +(done?' <span class="pill done">已处理</span>':' <button onclick="resolveDev(&quot;'+esc(d.at)+'&quot;)">标记已处理</button>')+'</li>';
+  }).join('')||'<li class="muted">暂无</li>';
+}
+function saveGoal(){api({action:'goal',northStar:document.getElementById('goalInput').value});}
+function addRed(){var v=document.getElementById('redInput').value;if(!v)return;api({action:'goal',addRedLine:v}).then(function(j){if(j&&j.ok)document.getElementById('redInput').value='';});}
+function addItem(){
+  var i=document.getElementById('newId').value,t=document.getElementById('newTitle').value,d=document.getElementById('newDetail').value;
+  if(!t){say('请填任务标题',true);return;}
+  if(!d){say('详情/验收标准是必填项（台账要求）',true);return;}
+  api({action:'add',id:i,title:t,source:'看板登记',detail:d,status:'todo'}).then(function(j){
+    if(j&&j.ok){document.getElementById('newId').value='';document.getElementById('newTitle').value='';document.getElementById('newDetail').value='';say('已登记',false);}
+  });
+}
+function setStatus(id,s){
+  var need=(s==='done'||s==='blocked'||s==='void');
+  var f=document.getElementById('resFor_'+id);
+  var r=need?((f&&f.value.trim())||''):'';
+  if(need&&!r){say('标记为 '+s+' 需要先填回写结果（终态必填）',true);if(f)f.focus();return;}
+  api({action:'update',id:id,status:s,result:r,by:'gui',via:'gui'}).then(function(j){if(j&&j.ok)say('已更新 '+id+' → '+s,false);});
+}
+function addDev(){var w=document.getElementById('devWhat').value,r=document.getElementById('devRed').value;if(!w)return;api({action:'deviate',what:w,redLine:r}).then(function(){document.getElementById('devWhat').value='';});}
+function resolveDev(at){api({action:'deviation',at:at,status:'resolved'}).then(function(j){if(j&&j.ok)say('已标记处理',false);});}
+api();
+var POLL=5000, lastAt=0;
+setInterval(function(){
+  if (document.hidden) return;
+  var t=document.getElementById('tick');
+  if (t) t.textContent='自动刷新中 · ' + new Date().toLocaleTimeString();
+  api();
+}, POLL);
+document.addEventListener('visibilitychange', function(){ if(!document.hidden) api(); });
+</script></body></html>

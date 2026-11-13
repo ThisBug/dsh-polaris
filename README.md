@@ -361,9 +361,10 @@ test/run3.cjs      30 条上限 / 三主题渲染与对比度 / 项目切换 / �
 test/run4.cjs      记录翻页 / 侧边抽屉 / 偏离处理 / 状态轨迹 / 已读判定
 test/run5.cjs      点击热区：4 种视口 × 48 点死区扫描 + 真实鼠标点击回归
 test/run6.cjs      工具契约：6 个工具真调用 + 20 项校验/迁移/上限断言
-test/run8.cjs      红线送达：末尾追加 / 内容正确 / 不重复
+test/run8.cjs      红线送达：context 注册 / 内容正确 / 台账变化实时反映
 test/run9.cjs      自动刷新：轮询拿到新增项 / 刷新按钮生效
 test/run10.cjs     API 现读磁盘：磁盘变化即返回新数据 / 资源现读不回旧
+test/run11.cjs     网页看板：自动轮询 / 刷新按钮拿到新增项
 test/shots.cjs     一键重出 docs/ 里的全套截图
 test/mock*.json    中性演示数据（D:/Work/demo、D:/Work/second）
 docs/              截图
@@ -391,6 +392,7 @@ node test/run6.cjs
 node test/run8.cjs
 node test/run9.cjs
 node test/run10.cjs
+node test/run11.cjs
 ```
 
 测试直接渲染 `test/preview.html`，用 mock 数据接管 `fetch`，断言真实 DOM（不是快照）。截图落在 `test/out/`（已在 .gitignore 忽略）。
@@ -438,7 +440,29 @@ DSH 桌面外壳屏蔽了 `window.prompt`。本项目所有行内编辑都用真
 
 ## 红线怎么送达（为什么没有硬闸门）
 
-**做法**：每次用户发言，在消息末尾追加一段本项目的红线尾巴，纯文本，不拦任何工具。
+**做法**：注册为 **运行时上下文**（`systemPrompt.context`），不是每条用户消息手动追加。
+
+```js
+ctx.systemPrompt.context({
+  name: 'northstar:redlines',
+  order: 125,          // TEAM_IDENTITY 附近
+  required: true,      // 即使预设 suppress 了可选上下文，这条仍然送达
+  interpolate: false,  // 红线里的 {{ }} 不会被当成变量
+  text: (context) => renderRedTail(...)   // 每次装配现取，台账一改立刻生效
+});
+```
+
+为什么这样更优雅：
+
+| | 手动追加到用户消息 | `systemPrompt.context` |
+|---|---|---|
+| 频率 | 每条用户消息都塞一遍，上下文重复膨胀 | DSH 只在**内容变化**时追加一条 snapshot |
+| 去重 | 自己写代码判断「已经加过了」 | 框架层负责，天然幂等 |
+| 与预设/子会话 | 依赖 `agent/pre-step` 的字段，容易漏 | 全局注册，所有 agent 都可见 |
+| 实时性 | 依赖钩子时机 | `text` 是回调，每次装配现取 |
+| 位置 | 混在用户发言里 | 独立的运行时上下文段，结构清晰 |
+
+渲染出来是这样（只列 **进行中** 的任务，不列待办，避免占满）：
 
 ```
 〔北极星红线 · 项目 demo · 违反即事故〕
@@ -448,10 +472,6 @@ DSH 桌面外壳屏蔽了 `window.prompt`。本项目所有行内编辑都用真
 进行中：P01 进行中任务
 动手前逐条核对；踩了立刻 northstar_deviate 记录，不要自己合理化。
 ```
-
-- 挂在 `agent/pre-step`，只补**最后一条用户消息**，已有则跳过（不重复堆积）；
-- 红线来自**本会话所属项目**，不是配置里写死的那个项目；
-- 系统提示词里也有一段完整版，但**送达率以消息尾巴为准**——系统段在某些 agent preset 下可能不注入。
 
 **为什么不加"没读台账就不许写"的闸门**：试过两次，两次都把会话锁死——闸门挂在 `tools/pre-execute` 上是全局的，而全局拦截会把唯一能读台账的入口（`run_code`）一起拦掉，形成「要读先跑代码、要跑代码先读」的死循环。**任何拦截类设计在上线前都必须先证明它不会挡住唯一的出口。**
 
