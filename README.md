@@ -365,6 +365,8 @@ test/run8.cjs      红线送达：context 注册 / 内容正确 / 台账变化�
 test/run9.cjs      自动刷新：轮询拿到新增项 / 刷新按钮生效
 test/run10.cjs     API 现读磁盘：磁盘变化即返回新数据 / 资源现读不回旧
 test/run11.cjs     网页看板：自动轮询 / 刷新按钮拿到新增项
+test/run12.cjs     真实配置下的刷新链路：写入后 API 立即返回新数据 / 指纹变化
+test/run13.cjs     构建戳：API 返回 build / 面板显示版本
 test/shots.cjs     一键重出 docs/ 里的全套截图
 test/mock*.json    中性演示数据（D:/Work/demo、D:/Work/second）
 docs/              截图
@@ -393,6 +395,8 @@ node test/run8.cjs
 node test/run9.cjs
 node test/run10.cjs
 node test/run11.cjs
+node test/run12.cjs
+node test/run13.cjs
 ```
 
 测试直接渲染 `test/preview.html`，用 mock 数据接管 `fetch`，断言真实 DOM（不是快照）。截图落在 `test/out/`（已在 .gitignore 忽略）。
@@ -425,6 +429,16 @@ DSH 桌面外壳屏蔽了 `window.prompt`。本项目所有行内编辑都用真
 本仓库**不含任何真实业务数据**：`test/` 下的 mock 与截图均为虚构演示（项目路径 `D:/Work/demo`、任务名为通用的"页面审阅"流程）。台账文件默认写在用户本机 `~/.dsh/northstar/ledger.json`，不随仓库提交，也不会外发。
 
 ---
+
+## 怎么确认「跑的是最新代码」
+
+面板底部会显示构建戳，例如 `更新 23:48 · v881479`——这个值来自 `index.js` / `overlay.js` 的最后修改时间。
+
+- **改完代码后戳会变**，没变就说明加载的还是旧文件；
+- 服务端检测到戳变了，会在面板上弹一次「北极星已更新，点这里重载」，点一下即可换新（不用重启 DSH）；
+- `/northstar/api` 的返回里也带 `build` 字段，可直接用 curl/浏览器确认服务端版本。
+
+![构建戳](docs/run13-build.png)
 
 ## 数据为什么能自动更新
 
